@@ -18,7 +18,7 @@ export default defineConfig(
 		}
 	},
 	{
-		files: ['**/*.{ts,tsx}'],
+		files: ['**/*.{ts,tsx,js, mjs}'],
 		plugins: {
 			'react-hooks': eslintPluginReactHooks,
 			'react-refresh': eslintPluginReactRefresh
@@ -26,8 +26,17 @@ export default defineConfig(
 		rules: {
 			...eslintPluginReactHooks.configs.recommended.rules,
 			...eslintPluginReactRefresh.configs.vite.rules,
-			'prettier/prettier': ['error', { endOfLine: 'crlf' }],
-			'semi': ['error', 'always']
+			'prettier/prettier': [
+				'error',
+				{
+					useTabs: true,
+					tabWidth: 4,
+					endOfLine: 'crlf',
+					semi: true,
+					singleQuote: true,
+					trailingComma: 'none'
+				}
+			]
 		}
 	},
 	eslintConfigPrettier
