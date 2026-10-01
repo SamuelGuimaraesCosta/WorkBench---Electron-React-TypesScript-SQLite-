@@ -1,8 +1,22 @@
-import { contextBridge } from 'electron';
+import { contextBridge, ipcRenderer } from 'electron';
 import { electronAPI } from '@electron-toolkit/preload';
+import { Api } from '../shared/api';
 
 // Custom APIs for renderer
-const api = {};
+const api: Api = {
+	people: {
+		list: () => ipcRenderer.invoke('people:list')
+	},
+	services: {
+		list: () => ipcRenderer.invoke('services:list'),
+		save: (input) => ipcRenderer.invoke('services:save', input),
+		remove: (id) => ipcRenderer.invoke('services:remove', id)
+	},
+	settings: {
+		get: () => ipcRenderer.invoke('settings:get'),
+		save: (settings) => ipcRenderer.invoke('settings:save', settings)
+	}
+};
 
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise
