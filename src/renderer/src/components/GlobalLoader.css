@@ -1,0 +1,44 @@
+.loader-overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 99999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0, 0, 0, 0.75);
+	cursor: wait;
+	user-select: none;
+	/* o bloqueio é imediato; só o visual aparece depois de 150ms, evitando "piscar" */
+	opacity: 0;
+	animation: loader-fade-in 0.2s ease-out 0.15s forwards;
+}
+
+.loader-box {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 12px;
+	padding: 24px 36px;
+	border-radius: 16px;
+	background: #1f2430;
+	color: #fff;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.loader-gif {
+	width: 120px;
+	height: 120px;
+	object-fit: contain;
+}
+
+.loader-text {
+	margin: 0;
+	font-size: 1rem;
+	font-weight: 500;
+}
+
+@keyframes loader-fade-in {
+	to {
+		opacity: 1;
+	}
+}

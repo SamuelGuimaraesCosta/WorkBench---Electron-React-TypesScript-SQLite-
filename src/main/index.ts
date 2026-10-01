@@ -2,8 +2,34 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron';
 import { join } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import icon from '../../resources/icon.png?asset';
+import splashHtml from '../../resources/splash.html?asset';
 
-function createWindow(): void {
+const MIN_SPLASH_MS = 1500; // tempo mínimo na tela, para não piscar
+
+function createSplash(): BrowserWindow {
+	const splash = new BrowserWindow({
+		width: 420,
+		height: 320,
+		frame: false,
+		transparent: true,
+		resizable: false,
+		movable: true,
+		alwaysOnTop: true,
+		skipTaskbar: true,
+		center: true,
+		show: false,
+		icon,
+		webPreferences: { sandbox: true }
+	});
+
+	splash.loadFile(splashHtml);
+
+	splash.once('ready-to-show', () => splash.show());
+
+	return splash;
+}
+
+function createWindow(): BrowserWindow {
 	// Create the browser window.
 	const mainWindow = new BrowserWindow({
 		width: 900,
@@ -15,10 +41,6 @@ function createWindow(): void {
 			preload: join(__dirname, '../preload/index.js'),
 			sandbox: false
 		}
-	});
-
-	mainWindow.on('ready-to-show', () => {
-		mainWindow.show();
 	});
 
 	mainWindow.webContents.setWindowOpenHandler((details) => {
@@ -33,6 +55,8 @@ function createWindow(): void {
 	} else {
 		mainWindow.loadFile(join(__dirname, '../renderer/index.html'));
 	}
+
+	return mainWindow;
 }
 
 // This method will be called when Electron has finished
@@ -49,10 +73,20 @@ app.whenReady().then(() => {
 		optimizer.watchWindowShortcuts(window);
 	});
 
-	// IPC test
-	ipcMain.on('ping', () => console.log('pong'));
+	const splash = createSplash();
+	const startedAt = Date.now();
 
-	createWindow();
+	const mainWindow = createWindow();
+
+	mainWindow.once('ready-to-show', () => {
+		const restante = Math.max(0, MIN_SPLASH_MS - (Date.now() - startedAt));
+
+		setTimeout(() => {
+			if (!splash.isDestroyed()) splash.destroy();
+
+			mainWindow.show();
+		}, restante);
+	});
 
 	app.on('activate', function () {
 		// On macOS it's common to re-create a window in the app when the
