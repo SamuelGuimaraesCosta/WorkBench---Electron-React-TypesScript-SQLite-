@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline'; img-src 'self' data:" />
+		<title>WorkBench</title>
+		<style>
+			html,
+			body {
+				margin: 0;
+				height: 100%;
+				background: transparent;
+				overflow: hidden;
+				user-select: none;
+				-webkit-app-region: drag; /* permite arrastar a splash */
+			}
+			.card {
+				box-sizing: border-box;
+				height: calc(100% - 16px);
+				margin: 8px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 10px;
+				border-radius: 20px;
+				background: #1f2430;
+				color: #fff;
+				font-family: 'Segoe UI', sans-serif;
+				box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+			}
+			img {
+				width: 110px;
+				height: 110px;
+				object-fit: contain;
+			}
+			h1 {
+				margin: 0;
+				font-size: 1.6rem;
+				letter-spacing: 0.04em;
+			}
+			p {
+				margin: 0;
+				font-size: 0.85rem;
+				opacity: 0.7;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="card">
+			<img src="./gear-loader-white.gif" alt="" draggable="false" />
+			<h1>WorkBench</h1>
+			<p>Iniciando...</p>
+		</div>
+	</body>
+</html>

@@ -1,7 +1,7 @@
 {
 	"name": "WorkBench",
 	"productName": "WorkBench",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "Windows desktop app to manage service schedules, material inventory and tool tracking, with all data stored locally.",
 	"main": "./out/main/index.js",
 	"author": "Samuel Guimarães da Costa",
@@ -26,7 +26,8 @@
 		"@electron-toolkit/utils": "^4.0.0",
 		"better-sqlite3": "^13.0.3",
 		"drizzle-orm": "^0.45.3",
-		"electron-updater": "^6.3.9"
+		"electron-updater": "^6.3.9",
+		"react-router-dom": "^7.18.4"
 	},
 	"devDependencies": {
 		"@electron-toolkit/eslint-config-prettier": "^3.0.0",
