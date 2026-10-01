@@ -9,7 +9,7 @@ function Layout(): React.JSX.Element {
 	return (
 		<>
 			<Header />
-			<main style={{ flex: 1, overflow: 'auto' }}>
+			<main style={{ flex: 1, minHeight: 0, overflow: 'auto' }}>
 				<Outlet />
 			</main>
 		</>

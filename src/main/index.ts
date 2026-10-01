@@ -1,8 +1,9 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron';
+import { app, shell, BrowserWindow } from 'electron';
 import { join } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import icon from '../../resources/icon.png?asset';
 import splashHtml from '../../resources/splash.html?asset';
+import { registerSchedulerIpc } from './ipc/scheduler';
 
 const MIN_SPLASH_MS = 1500; // tempo mínimo na tela, para não piscar
 
@@ -72,6 +73,8 @@ app.whenReady().then(() => {
 	app.on('browser-window-created', (_, window) => {
 		optimizer.watchWindowShortcuts(window);
 	});
+
+	registerSchedulerIpc();
 
 	const splash = createSplash();
 	const startedAt = Date.now();
