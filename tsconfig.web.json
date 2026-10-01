@@ -9,10 +9,21 @@
   "compilerOptions": {
     "composite": true,
     "jsx": "react-jsx",
-    "baseUrl": ".",
     "paths": {
       "@renderer/*": [
-        "src/renderer/src/*"
+        "./src/renderer/src/*"
+      ],
+      "@assets/*": [
+        "./src/renderer/assets/*"
+      ],
+      "@preload/*": [
+        "./src/preload/*"
+      ],
+      "@components/*": [
+        "./src/renderer/src/components/*"
+      ],
+      "@lib/*": [
+        "./src/renderer/src/lib/*"
       ]
     }
   }
