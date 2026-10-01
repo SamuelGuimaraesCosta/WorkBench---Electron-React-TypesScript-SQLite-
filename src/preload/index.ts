@@ -15,6 +15,13 @@ const api: Api = {
 	settings: {
 		get: () => ipcRenderer.invoke('settings:get'),
 		save: (settings) => ipcRenderer.invoke('settings:save', settings)
+	},
+	materials: {
+		list: () => ipcRenderer.invoke('materials:list'),
+		save: (input) => ipcRenderer.invoke('materials:save', input),
+		remove: (id) => ipcRenderer.invoke('materials:remove', id),
+		pickImage: () => ipcRenderer.invoke('materials:pickImage'),
+		discardImage: (name) => ipcRenderer.invoke('materials:discardImage', name)
 	}
 };
 
