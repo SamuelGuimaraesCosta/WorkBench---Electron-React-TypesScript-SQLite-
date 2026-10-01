@@ -1,0 +1,32 @@
+:root {
+	--bg: #12151c;
+	--surface: #1f2430;
+	--surface-2: #2a3040;
+	--text: #e8ecf4;
+	--text-muted: #9aa4b8;
+	--primary: #f5a524;
+	--header-h: 64px;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+	margin: 0;
+	height: 100%;
+}
+
+body {
+	background: var(--bg);
+	color: var(--text);
+	font-family: 'Segoe UI', system-ui, sans-serif;
+	overflow: hidden;
+}
+
+#root {
+	display: flex;
+	flex-direction: column;
+}
