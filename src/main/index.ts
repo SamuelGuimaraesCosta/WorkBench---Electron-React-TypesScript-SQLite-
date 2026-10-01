@@ -4,8 +4,12 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import icon from '../../resources/icon.png?asset';
 import splashHtml from '../../resources/splash.html?asset';
 import { registerSchedulerIpc } from './ipc/scheduler';
+import { registerImageProtocol, registerImageScheme } from './images';
+import { registerInventoryIpc } from './ipc/inventory';
 
 const MIN_SPLASH_MS = 1500; // tempo mínimo na tela, para não piscar
+
+registerImageScheme(); // fora de qualquer função, no topo do módulo
 
 function createSplash(): BrowserWindow {
 	const splash = new BrowserWindow({
@@ -75,6 +79,8 @@ app.whenReady().then(() => {
 	});
 
 	registerSchedulerIpc();
+	registerImageProtocol();
+	registerInventoryIpc();
 
 	const splash = createSplash();
 	const startedAt = Date.now();

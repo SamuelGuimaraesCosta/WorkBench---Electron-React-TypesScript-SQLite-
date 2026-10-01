@@ -1,0 +1,39 @@
+.btn {
+	padding: 8px 14px;
+	border: 1px solid var(--surface-2);
+	border-radius: 8px;
+	background: var(--surface);
+	color: var(--text);
+	font: inherit;
+	cursor: pointer;
+}
+.btn:hover:not(:disabled) {
+	background: var(--surface-2);
+}
+.btn:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+.btn--primary {
+	background: var(--primary);
+	border-color: var(--primary);
+	color: #1a1405;
+	font-weight: 600;
+}
+.btn--primary:hover:not(:disabled) {
+	background: #ffb73d;
+}
+.btn--danger {
+	color: #ff7b80;
+	border-color: #5a2a2d;
+}
+input,
+select {
+	padding: 8px 10px;
+	border: 1px solid var(--surface-2);
+	border-radius: 8px;
+	background: var(--bg);
+	color: var(--text);
+	font: inherit;
+	color-scheme: dark;
+}
