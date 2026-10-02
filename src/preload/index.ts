@@ -31,6 +31,11 @@ const api: Api = {
 	images: {
 		pick: () => ipcRenderer.invoke('images:pick'),
 		discard: (name) => ipcRenderer.invoke('images:discard', name)
+	},
+	employees: {
+		list: () => ipcRenderer.invoke('employees:list'),
+		save: (input) => ipcRenderer.invoke('employees:save', input),
+		remove: (id) => ipcRenderer.invoke('employees:remove', id)
 	}
 };
 

@@ -8,6 +8,7 @@ import { registerImageProtocol, registerImageScheme } from './images';
 import { registerInventoryIpc } from './ipc/inventory';
 import { registerToolsIpc } from './ipc/tools';
 import { registerImagesIpc } from './ipc/images';
+import { registerEmployeesIpc } from './ipc/employees';
 
 const MIN_SPLASH_MS = 1500; // tempo mínimo na tela, para não piscar
 
@@ -85,6 +86,7 @@ app.whenReady().then(() => {
 	registerInventoryIpc();
 	registerToolsIpc();
 	registerImagesIpc();
+	registerEmployeesIpc();
 
 	const splash = createSplash();
 	const startedAt = Date.now();

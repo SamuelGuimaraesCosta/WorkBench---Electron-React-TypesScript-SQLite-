@@ -1,6 +1,7 @@
 import type { Person, SchedulerSettings, Service, ServiceInput } from './scheduler';
 import type { Material, MaterialInput } from './inventory';
 import type { Tool, ToolInput } from './tools';
+import { Employee, EmployeeInput } from './employees';
 
 export interface Api {
 	people: {
@@ -30,5 +31,10 @@ export interface Api {
 	images: {
 		pick(): Promise<string | null>;
 		discard(name: string): Promise<void>;
+	};
+	employees: {
+		list(): Promise<Employee[]>;
+		save(input: EmployeeInput): Promise<Employee>;
+		remove(id: number): Promise<void>;
 	};
 }

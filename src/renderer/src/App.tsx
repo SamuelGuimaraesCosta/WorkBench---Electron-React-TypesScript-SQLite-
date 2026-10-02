@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Services from './pages/Services';
 import Inventory from './pages/Inventory';
 import Tools from './pages/Tools';
+import Employees from './pages/Employees';
 
 function Layout(): React.JSX.Element {
 	return (
@@ -25,6 +26,7 @@ export default function App(): React.JSX.Element {
 					<Route path="servicos" element={<Services />} />
 					<Route path="estoque" element={<Inventory />} />
 					<Route path="ferramentas" element={<Tools />} />
+					<Route path="funcionarios" element={<Employees />} />
 				</Route>
 			</Routes>
 		</HashRouter>

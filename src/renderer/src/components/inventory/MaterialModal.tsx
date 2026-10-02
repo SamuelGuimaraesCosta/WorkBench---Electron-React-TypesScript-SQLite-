@@ -57,8 +57,7 @@ export function MaterialModal({ initial, onSave, onDelete, onClose }: Props): JS
 	const max = Number(maxQuantity);
 	const val = Number(value || 0);
 	const overMax = quantity !== '' && maxQuantity !== '' && q > max;
-	const invalid =
-		!name.trim() || quantity === '' || !(q >= 0) || !(max > 0) || overMax || !(val >= 0);
+	const invalid = !name.trim() || quantity === '' || !(q >= 0) || !(max > 0) || overMax || !(val >= 0);
 
 	const submit = (e: React.SubmitEvent<HTMLFormElement>): void => {
 		e.preventDefault();
@@ -101,36 +100,18 @@ export function MaterialModal({ initial, onSave, onDelete, onClose }: Props): JS
 				<div className="modal__row">
 					<label>
 						Quantidade disponível
-						<input
-							type="number"
-							min="0"
-							step="any"
-							value={quantity}
-							onChange={(e) => setQuantity(e.target.value)}
-						/>
+						<input type="number" min="0" step="any" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
 					</label>
 					<label>
 						Estoque máximo
-						<input
-							type="number"
-							min="0"
-							step="any"
-							value={maxQuantity}
-							onChange={(e) => setMaxQuantity(e.target.value)}
-						/>
+						<input type="number" min="0" step="any" value={maxQuantity} onChange={(e) => setMaxQuantity(e.target.value)} />
 					</label>
 				</div>
 
 				<div className="modal__row">
 					<label>
 						Valor unitário (R$)
-						<input
-							type="number"
-							min="0"
-							step="0.01"
-							value={value}
-							onChange={(e) => setValue(e.target.value)}
-						/>
+						<input type="number" min="0" step="0.01" value={value} onChange={(e) => setValue(e.target.value)} />
 					</label>
 					<label>
 						Unidade
@@ -144,19 +125,11 @@ export function MaterialModal({ initial, onSave, onDelete, onClose }: Props): JS
 					</label>
 				</div>
 
-				{overMax && (
-					<p className="modal__error">A quantidade não pode passar do estoque máximo.</p>
-				)}
+				{overMax && <p className="modal__error">A quantidade não pode passar do estoque máximo.</p>}
 
 				<div className="modal__actions">
 					{initial.id && (
-						<button
-							type="button"
-							className="btn btn--danger"
-							onClick={() =>
-								window.confirm('Excluir este material?') && onDelete(initial.id!)
-							}
-						>
+						<button type="button" className="btn btn--danger" onClick={() => window.confirm('Excluir este material?') && onDelete(initial.id!)}>
 							Excluir
 						</button>
 					)}

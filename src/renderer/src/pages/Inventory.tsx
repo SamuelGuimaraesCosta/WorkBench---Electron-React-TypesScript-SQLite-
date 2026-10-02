@@ -1,7 +1,7 @@
 import { JSX, useEffect, useMemo, useRef, useState } from 'react';
 import { MaterialModal } from '../components/inventory/MaterialModal';
 import { MaterialImage } from '../components/inventory/MaterialImage';
-import { StockBar } from '../components/inventory/Stockbar';
+import { StockBar } from '../components/inventory/StockBar';
 import type { Material, MaterialInput } from '../types/inventory';
 import { withLoader } from '../lib/loader';
 import { errorMessage } from '../lib/errors';

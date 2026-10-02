@@ -98,3 +98,13 @@ select {
 	gap: 8px;
 	margin-top: 4px;
 }
+textarea {
+	padding: 8px 10px;
+	border: 1px solid var(--surface-2);
+	border-radius: 8px;
+	background: var(--bg);
+	color: var(--text);
+	font: inherit;
+	color-scheme: dark;
+	resize: vertical;
+}

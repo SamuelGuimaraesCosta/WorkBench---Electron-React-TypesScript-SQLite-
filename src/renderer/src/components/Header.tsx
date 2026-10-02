@@ -8,7 +8,8 @@ import './Header.css';
 const links = [
 	{ to: '/servicos', label: 'Serviços' },
 	{ to: '/estoque', label: 'Estoque' },
-	{ to: '/ferramentas', label: 'Ferramentas' }
+	{ to: '/ferramentas', label: 'Ferramentas' },
+	{ to: '/funcionarios', label: 'Funcionários' }
 ];
 
 export function Header(): React.JSX.Element {
@@ -41,38 +42,17 @@ export function Header(): React.JSX.Element {
 
 			<nav className="header__nav">
 				{links.map((l) => (
-					<NavLink
-						key={l.to}
-						to={l.to}
-						className={({ isActive }) =>
-							`header__link${isActive ? ' header__link--active' : ''}`
-						}
-					>
+					<NavLink key={l.to} to={l.to} className={({ isActive }) => `header__link${isActive ? ' header__link--active' : ''}`}>
 						{l.label}
 					</NavLink>
 				))}
 
-				<button
-					className={`header__bell${hasDanger ? ' has-danger' : ''}`}
-					onClick={() => setOpen(true)}
-					aria-label={`Alertas: ${alerts.length}`}
-					title="Alertas"
-				>
+				<button className={`header__bell${hasDanger ? ' has-danger' : ''}`} onClick={() => setOpen(true)} aria-label={`Alertas: ${alerts.length}`} title="Alertas">
 					🔔
-					{alerts.length > 0 && (
-						<span className="header__badge">
-							{alerts.length > 99 ? '99+' : alerts.length}
-						</span>
-					)}
+					{alerts.length > 0 && <span className="header__badge">{alerts.length > 99 ? '99+' : alerts.length}</span>}
 				</button>
 
-				{open && (
-					<AlertsModal
-						alerts={alerts}
-						onOpenTool={openTool}
-						onClose={() => setOpen(false)}
-					/>
-				)}
+				{open && <AlertsModal alerts={alerts} onOpenTool={openTool} onClose={() => setOpen(false)} />}
 			</nav>
 		</header>
 	);
