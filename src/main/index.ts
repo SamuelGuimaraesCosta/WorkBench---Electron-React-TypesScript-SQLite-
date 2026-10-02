@@ -1,4 +1,4 @@
-import { app, shell, BrowserWindow } from 'electron';
+import { app, shell, BrowserWindow, dialog } from 'electron';
 import { join } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import icon from '../../resources/icon.png?asset';
@@ -9,6 +9,7 @@ import { registerInventoryIpc } from './ipc/inventory';
 import { registerToolsIpc } from './ipc/tools';
 import { registerImagesIpc } from './ipc/images';
 import { registerEmployeesIpc } from './ipc/employees';
+import { initDatabase, closeDatabase } from './db';
 
 const MIN_SPLASH_MS = 1500; // tempo mínimo na tela, para não piscar
 
@@ -81,15 +82,27 @@ app.whenReady().then(() => {
 		optimizer.watchWindowShortcuts(window);
 	});
 
-	registerSchedulerIpc();
-	registerImageProtocol();
-	registerInventoryIpc();
-	registerToolsIpc();
-	registerImagesIpc();
-	registerEmployeesIpc();
-
 	const splash = createSplash();
 	const startedAt = Date.now();
+
+	try {
+		initDatabase();
+
+		registerSchedulerIpc();
+		registerImageProtocol();
+		registerInventoryIpc();
+		registerToolsIpc();
+		registerImagesIpc();
+		registerEmployeesIpc();
+	} catch (e) {
+		if (!splash.isDestroyed()) splash.destroy();
+
+		dialog.showErrorBox('WorkBench', `Não foi possível abrir o banco de dados.\n\n${String(e)}`);
+
+		app.quit();
+
+		return;
+	}
 
 	const mainWindow = createWindow();
 
@@ -109,6 +122,8 @@ app.whenReady().then(() => {
 		if (BrowserWindow.getAllWindows().length === 0) createWindow();
 	});
 });
+
+app.on('before-quit', closeDatabase);
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits

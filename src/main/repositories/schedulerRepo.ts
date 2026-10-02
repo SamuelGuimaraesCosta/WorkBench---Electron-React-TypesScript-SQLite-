@@ -1,10 +1,7 @@
-import {
-	DEFAULT_SETTINGS,
-	type Person,
-	type SchedulerSettings,
-	type Service,
-	type ServiceInput
-} from '../../shared/scheduler';
+import { DEFAULT_SETTINGS, type Person, type SchedulerSettings, type Service, type ServiceInput } from '../../shared/scheduler';
+import { eq } from 'drizzle-orm';
+import { db } from '../db';
+import { services, settings } from '../db/schema';
 
 export interface SchedulerRepository {
 	listPeople(): Promise<Person[]>;
@@ -15,116 +12,46 @@ export interface SchedulerRepository {
 	saveSettings(s: SchedulerSettings): Promise<SchedulerSettings>;
 }
 
-// ---------- dados em memória (temporário) ----------
-const pad = (n: number): string => String(n).padStart(2, '0');
-const fmt = (d: Date): string =>
-	`${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
-
-function seedServices(): Service[] {
-	const now = new Date();
-	const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-
-	monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7));
-
-	const at = (day: number, h: number): string =>
-		fmt(new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + day, h));
-
-	return [
-		{
-			id: 1,
-			name: 'Troca de fiação',
-			client: 'Mercado Central',
-			personId: 1,
-			priority: 'alto',
-			start: at(0, 8),
-			end: at(0, 11)
-		},
-		{
-			id: 2,
-			name: 'Revisão de compressor',
-			client: 'Padaria Sol',
-			personId: 2,
-			priority: 'medio',
-			start: at(1, 9),
-			end: at(1, 12)
-		},
-		{
-			id: 3,
-			name: 'Instalação de bancada',
-			client: 'Oficina Silva',
-			personId: 3,
-			priority: 'baixo',
-			start: at(1, 10),
-			end: at(1, 13)
-		},
-		{
-			id: 4,
-			name: 'Reparo urgente',
-			client: 'Clínica Vida',
-			personId: 1,
-			priority: 'atrasado',
-			start: at(2, 14),
-			end: at(3, 10)
-		}
-	];
-}
-
-const people: Person[] = [
-	{ id: 1, name: 'Carlos' },
-	{ id: 2, name: 'Ana' },
-	{ id: 3, name: 'João' }
-];
-
-let services = seedServices();
-let settings: SchedulerSettings = { ...DEFAULT_SETTINGS };
-let nextId = 100;
-
-// Descomente para testar o loader (simula uma operação lenta)
-// const slow = () => new Promise((r) => setTimeout(r, 1200))
-const slow = async (): Promise<void> => {};
-
-export const schedulerRepo: SchedulerRepository = {
-	async listPeople() {
-		await slow();
-
-		return [...people];
+export const schedulerRepo = {
+	async listServices(): Promise<Service[]> {
+		return db().select().from(services).all();
 	},
-	async listServices() {
-		await slow();
 
-		return [...services];
-	},
-	async saveService(input) {
-		await slow();
+	async saveService(input: ServiceInput): Promise<Service> {
+		const { id, ...values } = input;
 
-		if (input.id) {
-			const exists = services.some((s) => s.id === input.id);
+		if (id) {
+			const updated = db().update(services).set(values).where(eq(services.id, id)).returning().get();
 
-			if (!exists) throw new Error('Serviço não encontrado.');
-
-			const updated = { ...input, id: input.id } as Service;
-
-			services = services.map((s) => (s.id === updated.id ? updated : s));
+			if (!updated) throw new Error('Serviço não encontrado.');
 
 			return updated;
 		}
 
-		const created: Service = { ...input, id: nextId++ };
-
-		services = [...services, created];
-
-		return created;
+		return db().insert(services).values(values).returning().get();
 	},
-	async removeService(id) {
-		await slow();
 
-		services = services.filter((s) => s.id !== id);
+	async removeService(id: number): Promise<void> {
+		db().delete(services).where(eq(services.id, id)).run();
 	},
-	async getSettings() {
-		return { ...settings };
+
+	async getSettings(): Promise<SchedulerSettings> {
+		const row = db().select().from(settings).where(eq(settings.id, 1)).get();
+
+		if (!row) return { ...DEFAULT_SETTINGS };
+
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const { id: _id, ...rest } = row;
+
+		return rest;
 	},
-	async saveSettings(s) {
-		settings = { ...s };
-		return { ...settings };
+
+	async saveSettings(s: SchedulerSettings): Promise<SchedulerSettings> {
+		db()
+			.insert(settings)
+			.values({ id: 1, ...s })
+			.onConflictDoUpdate({ target: settings.id, set: s })
+			.run();
+		return { ...s };
 	}
 };
