@@ -1,7 +1,7 @@
 {
 	"name": "WorkBench",
 	"productName": "WorkBench",
-	"version": "0.5.0",
+	"version": "0.6.0",
 	"description": "Windows desktop app to manage service schedules, material inventory and tool tracking, with all data stored locally.",
 	"main": "./out/main/index.js",
 	"author": "Samuel Guimarães da Costa",

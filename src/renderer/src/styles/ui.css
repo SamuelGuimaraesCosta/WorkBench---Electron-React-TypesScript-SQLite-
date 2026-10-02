@@ -37,3 +37,64 @@ select {
 	font: inherit;
 	color-scheme: dark;
 }
+.modal__hint {
+	margin: -6px 0 0;
+	font-size: 0.78rem;
+	color: var(--text-muted);
+}
+
+/* ---------- modal (compartilhado) ---------- */
+.modal-backdrop {
+	position: fixed;
+	inset: 0;
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0, 0, 0, 0.6);
+}
+
+.modal {
+	width: min(520px, 92vw);
+	max-height: 92vh;
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	padding: 24px;
+	border-radius: 16px;
+	background: var(--surface);
+	color: var(--text);
+	border: 1px solid var(--surface-2);
+	box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+}
+.modal h2 {
+	margin: 0;
+}
+.modal label {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	flex: 1;
+	font-size: 0.8rem;
+	color: var(--text-muted);
+}
+.modal__row {
+	display: flex;
+	gap: 12px;
+}
+.modal__error {
+	margin: 0;
+	color: #ff7b80;
+	font-size: 0.85rem;
+}
+.modal__hint {
+	margin: -6px 0 0;
+	font-size: 0.78rem;
+	color: var(--text-muted);
+}
+.modal__actions {
+	display: flex;
+	gap: 8px;
+	margin-top: 4px;
+}

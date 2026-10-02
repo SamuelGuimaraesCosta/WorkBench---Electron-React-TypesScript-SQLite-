@@ -1,0 +1,137 @@
+.tools {
+	height: calc(100vh - var(--header-h));
+	display: flex;
+	flex-direction: column;
+	padding: 12px 16px;
+	gap: 12px;
+}
+.tools__search {
+	width: 240px;
+}
+.tools__total {
+	color: var(--text-muted);
+	font-size: 0.9rem;
+}
+.tools__total strong {
+	color: var(--text);
+}
+.tools__content {
+	flex: 1;
+	min-height: 0;
+	overflow: auto;
+}
+.tools__empty {
+	text-align: center;
+	color: var(--text-muted);
+	margin-top: 60px;
+}
+
+/* ---------- cores por status ---------- */
+.st--disponivel {
+	--c: #3fb27f;
+}
+.st--em_uso {
+	--c: #4f8ef7;
+}
+.st--manutencao {
+	--c: #f5a524;
+}
+.st--alugada {
+	--c: #a371f7;
+}
+.st--necessita_reparo {
+	--c: #e5484d;
+}
+.st--necessita_troca {
+	--c: #d6409f;
+}
+
+.dot {
+	width: 9px;
+	height: 9px;
+	border-radius: 50%;
+	background: var(--c);
+	flex-shrink: 0;
+}
+
+.badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	width: fit-content;
+	padding: 3px 10px;
+	border-radius: 999px;
+	font-size: 0.78rem;
+	font-weight: 600;
+	color: var(--text);
+	background: color-mix(in srgb, var(--c) 22%, var(--surface));
+}
+
+/* filtros por status */
+.chips {
+	flex-shrink: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+.chip {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 5px 12px;
+	border: 1px solid var(--surface-2);
+	border-radius: 999px;
+	background: var(--surface);
+	color: var(--text-muted);
+	font: inherit;
+	font-size: 0.82rem;
+	cursor: pointer;
+}
+.chip:hover {
+	background: var(--surface-2);
+	color: var(--text);
+}
+.chip b {
+	font-weight: 600;
+	color: var(--text);
+}
+.chip.is-active {
+	color: var(--text);
+	border-color: var(--c, var(--primary));
+	background: color-mix(in srgb, var(--c, var(--primary)) 18%, var(--surface));
+}
+
+/* cards */
+.tool-card {
+	position: relative;
+	border-top: 4px solid var(--c);
+}
+.tool-flag {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	z-index: 1;
+	padding: 2px 8px;
+	border-radius: 999px;
+	background: #f5a524;
+	color: #1a1405;
+	font-size: 0.75rem;
+	font-weight: 700;
+}
+.tool-flag--danger {
+	background: #e5484d;
+	color: #fff;
+}
+.tool-flag--inline {
+	position: static;
+	justify-self: end;
+}
+
+/* lista */
+.inv-row.tool-row {
+	grid-template-columns: 56px minmax(0, 2fr) minmax(0, 1.4fr) minmax(0, 1.2fr) 60px minmax(0, 1fr) 56px;
+	border-left: 4px solid var(--c, transparent);
+}
+.inv-row--head.tool-row {
+	border-left-color: transparent;
+}

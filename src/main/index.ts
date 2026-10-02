@@ -6,6 +6,8 @@ import splashHtml from '../../resources/splash.html?asset';
 import { registerSchedulerIpc } from './ipc/scheduler';
 import { registerImageProtocol, registerImageScheme } from './images';
 import { registerInventoryIpc } from './ipc/inventory';
+import { registerToolsIpc } from './ipc/tools';
+import { registerImagesIpc } from './ipc/images';
 
 const MIN_SPLASH_MS = 1500; // tempo mínimo na tela, para não piscar
 
@@ -81,6 +83,8 @@ app.whenReady().then(() => {
 	registerSchedulerIpc();
 	registerImageProtocol();
 	registerInventoryIpc();
+	registerToolsIpc();
+	registerImagesIpc();
 
 	const splash = createSplash();
 	const startedAt = Date.now();

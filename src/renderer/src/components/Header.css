@@ -33,6 +33,7 @@
 	display: flex;
 	justify-content: flex-end;
 	gap: 6px;
+	align-items: center;
 }
 
 .header__link {
@@ -54,4 +55,41 @@
 .header__link--active {
 	color: var(--primary);
 	background: var(--surface-2);
+}
+
+.header__bell {
+	position: relative;
+	margin-left: 6px;
+	width: 40px;
+	height: 40px;
+	border: 0;
+	border-radius: 8px;
+	background: transparent;
+	color: var(--text-muted);
+	font-size: 1.25rem;
+	cursor: pointer;
+}
+.header__bell:hover {
+	background: var(--surface-2);
+	color: var(--text);
+}
+
+.header__badge {
+	position: absolute;
+	top: 2px;
+	right: 0;
+	min-width: 18px;
+	height: 18px;
+	padding: 0 5px;
+	border-radius: 9px;
+	background: #f5a524;
+	color: #1a1405;
+	font-size: 0.7rem;
+	font-weight: 700;
+	display: grid;
+	place-items: center;
+}
+.header__bell.has-danger .header__badge {
+	background: #e5484d;
+	color: #fff;
 }
