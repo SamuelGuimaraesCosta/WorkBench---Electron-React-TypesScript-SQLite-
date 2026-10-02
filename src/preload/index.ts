@@ -22,6 +22,15 @@ const api: Api = {
 		remove: (id) => ipcRenderer.invoke('materials:remove', id),
 		pickImage: () => ipcRenderer.invoke('materials:pickImage'),
 		discardImage: (name) => ipcRenderer.invoke('materials:discardImage', name)
+	},
+	tools: {
+		list: () => ipcRenderer.invoke('tools:list'),
+		save: (input) => ipcRenderer.invoke('tools:save', input),
+		remove: (id) => ipcRenderer.invoke('tools:remove', id)
+	},
+	images: {
+		pick: () => ipcRenderer.invoke('images:pick'),
+		discard: (name) => ipcRenderer.invoke('images:discard', name)
 	}
 };
 
