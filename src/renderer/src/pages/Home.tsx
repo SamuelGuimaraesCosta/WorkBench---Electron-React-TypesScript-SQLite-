@@ -4,7 +4,8 @@ import './Home.css';
 const modules = [
 	{ to: '/servicos', title: 'Serviços', desc: 'Agenda semanal de serviços e responsáveis.' },
 	{ to: '/estoque', title: 'Estoque', desc: 'Materiais, quantidades e valores.' },
-	{ to: '/ferramentas', title: 'Ferramentas', desc: 'Status, responsáveis e manutenção.' }
+	{ to: '/ferramentas', title: 'Ferramentas', desc: 'Status, responsáveis e manutenção.' },
+	{ to: '/funcionarios', title: 'Funcionários', desc: 'Cadastro e status da equipe.' }
 ];
 
 export default function Home(): React.JSX.Element {
